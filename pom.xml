@@ -24,7 +24,7 @@
     <dependency>
       <groupId>com.gooddata.cl</groupId>
       <artifactId>gooddata-cl-backend</artifactId>
-      <version>1.2.67</version>
+      <version>1.2.68</version>
     </dependency>
   </dependencies>
 </project>
