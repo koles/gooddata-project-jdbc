@@ -25,13 +25,18 @@ import com.gooddata.integration.rest.configuration.NamePasswordConfiguration;
 class ProjectConnection implements Connection {
 	
 	final GdcRESTApiWrapper gdc;
-	private final String projectId;
+	final String projectId;
+	final String url;
+	final String username;
 	
-	public ProjectConnection(final String projectId, final String username, final String password) {
+	public ProjectConnection(final String url, final String username, final String password) {
+		String projectId = url.replaceAll("^.*/", "");
 		NamePasswordConfiguration config = new NamePasswordConfiguration("https", "secure.gooddata.com", username, password);
 		this.gdc = new GdcRESTApiWrapper(config);
 		gdc.login();
 		this.projectId = projectId;
+		this.url = url;
+		this.username = username;
 	}
 
 	public boolean isWrapperFor(Class<?> arg0) throws SQLException {
@@ -125,8 +130,7 @@ class ProjectConnection implements Connection {
 	}
 
 	public DatabaseMetaData getMetaData() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new ProjectMetaData(this);
 	}
 
 	public int getTransactionIsolation() throws SQLException {

@@ -33,8 +33,7 @@ public class Driver implements java.sql.Driver
 	public Connection connect(String url, Properties props) throws SQLException {
 		final String username = props.getProperty(PROP_USERNAME);
 		final String password = props.getProperty(PROP_PASSWORD);
-		final String projectId = url.replaceAll("^.*/", "");
-		return new ProjectConnection(projectId, username, password);
+		return new ProjectConnection(url, username, password);
 	}
 
 	public int getMajorVersion() {
