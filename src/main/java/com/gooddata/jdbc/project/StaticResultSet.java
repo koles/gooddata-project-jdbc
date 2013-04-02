@@ -18,7 +18,7 @@ public class StaticResultSet extends SimpleResultSet {
 	}
 
 	public boolean next() throws SQLException {
-		if (rowNumber == rows.length) {
+		if (rowNumber == rows.length - 1) {
 			return false;
 		}
 		rowNumber++;
@@ -33,8 +33,8 @@ public class StaticResultSet extends SimpleResultSet {
 	}
 
 	public Object getObject(int columnIndex) throws SQLException {
-		System.out.println(rowNumber + ", " + columnIndex + " ... " + rows.length + "|" + (rows.length > 0 ? rows[0].length : "x"));
-		return rows[rowNumber][columnIndex - 1];
+		String[] row = rows[rowNumber];
+		return row[columnIndex - 1];
 	}
 
 	public int findColumn(String columnLabel) throws SQLException {

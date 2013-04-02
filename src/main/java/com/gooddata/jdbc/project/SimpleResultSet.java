@@ -39,7 +39,8 @@ public abstract class SimpleResultSet implements ResultSet {
 	}
 
 	public String getString(int columnIndex) throws SQLException {
-		return getObject(columnIndex).toString();
+		Object o = getObject(columnIndex);
+		return o == null ? "" : o.toString();
 	}
 
 	public boolean getBoolean(int columnIndex) throws SQLException {

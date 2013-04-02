@@ -554,14 +554,13 @@ public class ProjectMetaData implements DatabaseMetaData {
 
 	public ResultSet getProcedures(String catalog, String schemaPattern,
 			String procedureNamePattern) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public ResultSet getProcedureColumns(String catalog, String schemaPattern,
 			String procedureNamePattern, String columnNamePattern)
 			throws SQLException {
-		return new ReportResultSet((ProjectStatement)connection.createStatement());
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public ResultSet getTables(String catalog, String schemaPattern,
@@ -579,7 +578,7 @@ public class ProjectMetaData implements DatabaseMetaData {
 			"SELF_REFERENCING_COL_NAME", // String => name of the designated "identifier" column of a typed table (may be null)
 			"REF_GENERATION" // String => specifies how values in SELF_REFERENCING_COL_NAME are created. Values are "SYSTEM", "USER", "DERIVED". (may be null)
 		};
-		String[][] rows = new String[10][datasets.size()];
+		String[][] rows = new String[datasets.size()][10];
 		for (int i = 0; i < datasets.size(); i++) {
 			rows[i] = new String[] { null, null, datasets.get(i), "DATASET", "", null, null, null, null, null }; 
 		}
@@ -591,7 +590,7 @@ public class ProjectMetaData implements DatabaseMetaData {
 	}
 
 	public ResultSet getCatalogs() throws SQLException {
-		return new StaticResultSet(new String[] { "TABLE_CAT" }, new String[0][0]);
+		return new StaticResultSet(new String[] { "TABLE_CAT" }, new String[][] { new String[] { "" }});
 	}
 
 	public ResultSet getTableTypes() throws SQLException {
@@ -620,9 +619,6 @@ public class ProjectMetaData implements DatabaseMetaData {
 			"CHAR_OCTET_LENGTH", //int => for char types the maximum number of bytes in the column
 			"ORDINAL_POSITION", //int	=> index of column in table (starting at 1)
 			"IS_NULLABLE", //String => ISO rules are used to determine the nullability for a column.
-			"YES", //--- if the parameter can include NULLs
-			"NO", //--- if the parameter cannot include NULLs
-			"empty", //string --- if the nullability for the parameter is unknown
 			"SCOPE_CATLOG", //String => catalog of table that is the scope of a reference attribute (null if DATA_TYPE isn't REF)
 			"SCOPE_SCHEMA", //String => schema of table that is the scope of a reference attribute (null if the DATA_TYPE isn't REF)
 			"SCOPE_TABLE", //String => table name that this the scope of a reference attribure (null if the DATA_TYPE isn't REF)
@@ -663,60 +659,59 @@ public class ProjectMetaData implements DatabaseMetaData {
 
 	public ResultSet getBestRowIdentifier(String catalog, String schema,
 			String table, int scope, boolean nullable) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		String[] header = new String[] {
+			"SCOPE", //short => actual scope of result
+			"COLUMN_NAME", //String => column name
+			"DATA_TYPE", //int => SQL data type from java.sql.Types
+			"TYPE_NAME", //String => Data source dependent type name, for a UDT the type name is fully qualified
+			"COLUMN_SIZE", //int => precision
+			"BUFFER_LENGTH", //int => not used
+			"DECIMAL_DIGITS" //short	 => scale - Null is returned for data types where DECIMAL_DIGITS is not applicable.
+		};
+		return new StaticResultSet(header, new String[0][0]);
 	}
 
 	public ResultSet getVersionColumns(String catalog, String schema,
 			String table) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public ResultSet getPrimaryKeys(String catalog, String schema, String table)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public ResultSet getImportedKeys(String catalog, String schema, String table)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public ResultSet getExportedKeys(String catalog, String schema, String table)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public ResultSet getCrossReference(String parentCatalog,
 			String parentSchema, String parentTable, String foreignCatalog,
 			String foreignSchema, String foreignTable) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public ResultSet getTypeInfo() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public ResultSet getIndexInfo(String catalog, String schema, String table,
 			boolean unique, boolean approximate) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public boolean supportsResultSetType(int type) throws SQLException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public boolean supportsResultSetConcurrency(int type, int concurrency)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -772,13 +767,11 @@ public class ProjectMetaData implements DatabaseMetaData {
 
 	public ResultSet getUDTs(String catalog, String schemaPattern,
 			String typeNamePattern, int[] types) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public Connection getConnection() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return connection;
 	}
 
 	public boolean supportsSavepoints() throws SQLException {
@@ -803,21 +796,18 @@ public class ProjectMetaData implements DatabaseMetaData {
 
 	public ResultSet getSuperTypes(String catalog, String schemaPattern,
 			String typeNamePattern) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public ResultSet getSuperTables(String catalog, String schemaPattern,
 			String tableNamePattern) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public ResultSet getAttributes(String catalog, String schemaPattern,
 			String typeNamePattern, String attributeNamePattern)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public boolean supportsResultSetHoldability(int holdability)
@@ -873,8 +863,7 @@ public class ProjectMetaData implements DatabaseMetaData {
 
 	public ResultSet getSchemas(String catalog, String schemaPattern)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public boolean supportsStoredFunctionsUsingCallSyntax() throws SQLException {
@@ -888,21 +877,18 @@ public class ProjectMetaData implements DatabaseMetaData {
 	}
 
 	public ResultSet getClientInfoProperties() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public ResultSet getFunctions(String catalog, String schemaPattern,
 			String functionNamePattern) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 	public ResultSet getFunctionColumns(String catalog, String schemaPattern,
 			String functionNamePattern, String columnNamePattern)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return new StaticResultSet(new String[0], new String[0][0]);
 	}
 
 }
